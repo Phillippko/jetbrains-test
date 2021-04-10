@@ -1,23 +1,33 @@
-package com.phillippko.analytics.controllers;
+package com.phillippko.analytics.controller;
 
 import com.phillippko.analytics.dto.MessageIncomingDto;
 import com.phillippko.analytics.dto.TemplateDto;
 import com.phillippko.analytics.service.MessageService;
 import com.phillippko.analytics.service.TemplateService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class TemplateController {
     private final TemplateService templateService;
-    private final MessageService messageService;
+    private MessageService messageService;
+
+    @Value("${message-service:feign-message-service}")
+    private String messageServiceType;
+
+    @Autowired
+    void setMessageService(ApplicationContext context) {
+        messageService = (MessageService) context.getBean(messageServiceType);
+    }
 
     @PostMapping("template")
     void postMapping(@RequestBody TemplateDto templateDto) {
-
         templateService.addTemplate(templateDto);
     }
 

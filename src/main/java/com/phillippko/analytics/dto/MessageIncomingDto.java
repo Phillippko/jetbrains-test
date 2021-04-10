@@ -7,8 +7,8 @@ import java.util.Map;
 
 @Data
 public class MessageIncomingDto {
-    private String templateId;
-    private List<Map<String, String>> variables;
+    private final String templateId;
+    private final List<Map<String, String>> variables;
 
 
 }

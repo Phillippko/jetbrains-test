@@ -1,10 +1,10 @@
 package com.phillippko.analytics.service;
 
-import com.phillippko.analytics.TemplateRepository;
 import com.phillippko.analytics.domain.Recipient;
 import com.phillippko.analytics.domain.Template;
 import com.phillippko.analytics.dto.TemplateDto;
 import com.phillippko.analytics.repository.RecipientRepository;
+import com.phillippko.analytics.repository.TemplateRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,7 @@ import java.util.Map;
 @AllArgsConstructor
 public class TemplateService {
     private final TemplateRepository templateRepository;
-    private RecipientRepository recipientRepository;
+    private final RecipientRepository recipientRepository;
 
     public void addTemplate(TemplateDto templateDto) {
         Template template = new Template();

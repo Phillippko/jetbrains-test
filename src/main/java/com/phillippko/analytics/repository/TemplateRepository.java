@@ -1,4 +1,4 @@
-package com.phillippko.analytics;
+package com.phillippko.analytics.repository;
 
 import com.phillippko.analytics.domain.Template;
 import org.springframework.data.jpa.repository.JpaRepository;
