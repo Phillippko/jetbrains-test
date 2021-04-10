@@ -22,7 +22,7 @@ public class TemplateService {
         Template template = new Template();
         template.setTemplate(templateDto.template);
         template.setTemplateId(templateDto.templateId);
-        template.setRecipients(new ArrayList<Recipient>());
+        template.setRecipients(new ArrayList<>());
         templateDto.recipients.forEach(recipientUrl -> {
             Recipient recipient = new Recipient();
             recipient.setUrl(recipientUrl);
