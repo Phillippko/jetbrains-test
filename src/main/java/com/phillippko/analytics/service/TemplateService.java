@@ -18,19 +18,19 @@ public class TemplateService {
     private final TemplateRepository templateRepository;
 
     public void addTemplate(TemplateDto templateDto) {
+        List<Recipient> recipients = templateDto.recipients
+                .stream()
+                .map(Recipient::new)
+                .collect(Collectors.toList());
+
         templateRepository.save(
                 Template.builder()
                         .templateId(templateDto.templateId)
                         .template(templateDto.template)
-                        .recipients(getRecipientsList(templateDto.recipients))
+                        .recipients(recipients)
                         .build());
     }
 
-    private List<Recipient> getRecipientsList(List<String> recipientUrls) {
-        return recipientUrls.stream()
-                .map(Recipient::new)
-                .collect(Collectors.toList());
-    }
 
 
     public Template getTemplateById(String templateId) {
