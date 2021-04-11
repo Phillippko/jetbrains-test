@@ -42,6 +42,7 @@ class TemplateServiceTest {
     @Transactional
     void fillTemplate() {
         templateService.addTemplate(templateDto);
+
         List<Map<String, String>> variables = new ArrayList<>();
         Map<String, String> variable = new HashMap<>();
         variable.put("index", index);
@@ -51,7 +52,10 @@ class TemplateServiceTest {
         variable.put("teamName", teamName);
         variables.add(variable);
         MessageIncomingDto message = new MessageIncomingDto(dummyTemplateId, variables);
+
         String result = templateService.fillTemplate(message).getMessage();
+
+
         assert (result.equals("тест для " + teamName + " номер " + index));
     }
 

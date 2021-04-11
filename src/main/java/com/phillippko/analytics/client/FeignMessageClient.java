@@ -6,8 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.net.URI;
 
-
-@FeignClient(name = "messages", url = "pshe")
+@FeignClient(name = "messages", url = "placeholder")
 public interface FeignMessageClient {
 
     @PostMapping("")
