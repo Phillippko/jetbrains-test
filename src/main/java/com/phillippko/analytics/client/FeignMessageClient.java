@@ -8,9 +8,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.net.URI;
 
 
-@FeignClient(name = "messages", url = "")
+@FeignClient(name = "messages", url = "placeholder")
 public interface FeignMessageClient {
 
     @PostMapping("")
     Response send(URI baseUrl, MessageOutgoingDto message);
+
 }

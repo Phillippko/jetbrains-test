@@ -2,6 +2,7 @@ package com.phillippko.analytics.service;
 
 import com.phillippko.analytics.domain.Recipient;
 import com.phillippko.analytics.domain.Template;
+import com.phillippko.analytics.dto.MessageOutgoingDto;
 import com.phillippko.analytics.dto.TemplateDto;
 import com.phillippko.analytics.repository.RecipientRepository;
 import com.phillippko.analytics.repository.TemplateRepository;
@@ -37,12 +38,13 @@ public class TemplateService {
         return templateRepository.getOne(templateId);
     }
 
-    public String fillTemplate(Template template, List<Map<String, String>> variables) {
-        String result = template.getTemplate();
+    public MessageOutgoingDto fillTemplate(Template template, List<Map<String, String>> variables) {
+        String resultText = template.getTemplate();
         for (Map<String, String> variable : variables) {
             String variableName = variable.keySet().iterator().next();
-            result = result.replaceAll(("\\$" + variableName + "\\$"), variable.get(variableName));
+            resultText = resultText.replaceAll(("\\$" + variableName + "\\$"), variable.get(variableName));
         }
-        return result;
+
+        return new MessageOutgoingDto(resultText);
     }
 }

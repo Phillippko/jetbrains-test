@@ -38,7 +38,7 @@ class TemplateServiceTest {
         variable = new HashMap<>();
         variable.put("teamName", teamName);
         variables.add(variable);
-        String result = templateService.fillTemplate(template, variables);
+        String result = templateService.fillTemplate(template, variables).getMessage();
         assert (result.equals("тест для " + teamName + " номер " + index));
     }
 
