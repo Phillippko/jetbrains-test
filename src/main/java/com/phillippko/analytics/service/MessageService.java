@@ -1,6 +1,5 @@
 package com.phillippko.analytics.service;
 
-import com.phillippko.analytics.domain.Template;
 import com.phillippko.analytics.dto.MessageIncomingDto;
 import com.phillippko.analytics.dto.MessageOutgoingDto;
 import com.phillippko.analytics.service.messageSenders.SenderService;
@@ -16,15 +15,10 @@ public class MessageService {
     private final List<SenderService> senderServices;
 
     public void processMessage(MessageIncomingDto messageIncomingDto) {
-        Template template = templateService.getTemplateById(
-                messageIncomingDto.getTemplateId());
 
-        MessageOutgoingDto message = templateService.fillTemplate(
-                template, messageIncomingDto.getVariables());
-
-        senderServices
-                .forEach(senderService ->
-                        senderService.sendMessage(message, template.getRecipients()));
+        MessageOutgoingDto message = templateService.fillTemplate(messageIncomingDto);
+        senderServices.forEach(senderService -> senderService.sendMessage(message));
     }
-
 }
+
+
