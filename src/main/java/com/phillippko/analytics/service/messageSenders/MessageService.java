@@ -1,4 +1,4 @@
-package com.phillippko.analytics.service;
+package com.phillippko.analytics.service.messageSenders;
 
 import com.phillippko.analytics.dto.MessageIncomingDto;
 
