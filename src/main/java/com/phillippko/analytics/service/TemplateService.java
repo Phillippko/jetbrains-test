@@ -4,35 +4,34 @@ import com.phillippko.analytics.domain.Recipient;
 import com.phillippko.analytics.domain.Template;
 import com.phillippko.analytics.dto.MessageOutgoingDto;
 import com.phillippko.analytics.dto.TemplateDto;
-import com.phillippko.analytics.repository.RecipientRepository;
 import com.phillippko.analytics.repository.TemplateRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class TemplateService {
     private final TemplateRepository templateRepository;
-    private final RecipientRepository recipientRepository;
 
     public void addTemplate(TemplateDto templateDto) {
-        Template template = new Template();
-        template.setTemplate(templateDto.template);
-        template.setTemplateId(templateDto.templateId);
-        template.setRecipients(new ArrayList<>());
-        templateDto.recipients.forEach(recipientUrl -> {
-            Recipient recipient = new Recipient();
-            recipient.setUrl(recipientUrl);
-            recipientRepository.save(recipient);
-            template.getRecipients().add(recipient);
-
-        });
-        templateRepository.save(template);
+        templateRepository.save(
+                Template.builder()
+                        .templateId(templateDto.templateId)
+                        .template(templateDto.template)
+                        .recipients(getRecipientsList(templateDto.recipients))
+                        .build());
     }
+
+    private List<Recipient> getRecipientsList(List<String> recipientUrls) {
+        return recipientUrls.stream()
+                .map(Recipient::new)
+                .collect(Collectors.toList());
+    }
+
 
     public Template getTemplateById(String templateId) {
         return templateRepository.getOne(templateId);

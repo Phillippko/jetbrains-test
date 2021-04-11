@@ -4,12 +4,12 @@ import com.phillippko.analytics.domain.Template;
 import com.phillippko.analytics.dto.MessageIncomingDto;
 import com.phillippko.analytics.dto.MessageOutgoingDto;
 import com.phillippko.analytics.service.messageSenders.SenderService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 public class MessageService {
     private final TemplateService templateService;
