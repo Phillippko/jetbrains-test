@@ -15,9 +15,10 @@ public class MessageService {
     private final List<SenderService> senderServices;
 
     public void processMessage(MessageIncomingDto messageIncomingDto) {
-
-        MessageOutgoingDto message = templateService.fillTemplate(messageIncomingDto);
-        senderServices.forEach(senderService -> senderService.sendMessage(message));
+        MessageOutgoingDto message =
+                templateService.fillTemplate(messageIncomingDto);
+        senderServices.forEach(senderService ->
+                senderService.sendMessage(message));
     }
 }
 

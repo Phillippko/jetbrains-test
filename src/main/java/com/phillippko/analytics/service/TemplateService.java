@@ -20,11 +20,12 @@ public class TemplateService {
     private final TemplateRepository templateRepository;
     private final RecipientRepository recipientRepository;
     public void addTemplate(TemplateDto templateDto) {
-        List<Recipient> recipients = templateDto.recipients
-                .stream()
-                .map(Recipient::new)
-                .collect(Collectors.toList());
+        List<Recipient> recipients =
+                templateDto.recipients.stream()
+                        .map(Recipient::new)
+                        .collect(Collectors.toList());
         recipientRepository.saveAll(recipients);
+
         templateRepository.save(
                 Template.builder()
                         .templateId(templateDto.templateId)
@@ -43,8 +44,12 @@ public class TemplateService {
 
         String resultText = template.getTemplate();
         for (Map<String, String> variable : messageDto.getVariables()) {
-            String variableName = variable.keySet().iterator().next();
-            resultText = resultText.replaceAll(("\\$" + variableName + "\\$"), variable.get(variableName));
+            String variableName =
+                    variable.keySet().iterator().next();
+            resultText = resultText
+                    .replaceAll(
+                            "\\$" + variableName + "\\$",
+                            variable.get(variableName));
         }
 
         return new MessageOutgoingDto(resultText, template.getRecipients());

@@ -20,9 +20,12 @@ public class WebClientSenderService implements SenderService {
         return message.getRecipients().stream()
                 .map(recipient -> client.post()
                         .uri(recipient.getUrl())
-                        .body(Mono.just(message), MessageOutgoingDto.class)
+                        .body(
+                                Mono.just(message),
+                                MessageOutgoingDto.class)
                         .retrieve()
-                        .bodyToMono(String.class).block())
+                        .bodyToMono(String.class)
+                        .block())
                 .collect(Collectors.toList());
     }
 
