@@ -9,6 +9,4 @@ import java.util.Map;
 public class MessageIncomingDto {
     private final String templateId;
     private final List<Map<String, String>> variables;
-
-
 }
