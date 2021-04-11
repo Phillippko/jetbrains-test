@@ -10,15 +10,16 @@ import java.util.Collections;
 import java.util.List;
 
 @SpringBootTest
-class FeignSenderServiceTest {
+class WebClientSenderServiceTest {
     @Autowired
-    private FeignSenderService feignSenderService;
+    private WebClientSenderService webClientSenderService;
 
     @Test
-    void sendMessage() {
-        String messageText = "test";
-        List<Recipient> recipients = Collections.singletonList(new Recipient("httpbin.org/anything"));
+    void shouldReceiveEchoInResponse() {
+        String messageText = "test message";
+        List<Recipient> recipients = Collections.singletonList(new Recipient("https://httpbin.org/anything"));
         MessageOutgoingDto message = new MessageOutgoingDto(messageText, recipients);
-        feignSenderService.sendMessage(message);
+        String response = webClientSenderService.sendMessage(message).get(0);
+        assert (response.contains("test message"));
     }
 }
